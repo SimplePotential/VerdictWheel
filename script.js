@@ -107,8 +107,9 @@ function drawWheel(highlightIndex = -1){
     }
     ctx.restore();
 
-    opt._start = start;
-    opt._end = end;
+    // Store boundaries in [0, 2PI)
+    opt._start = (start + Math.PI*2) % (Math.PI*2);
+    opt._end = (end + Math.PI*2) % (Math.PI*2);
     start = end;
   }
 
@@ -139,6 +140,7 @@ function addOption(){
   labelInput.value=''; weightInput.value='1';
   renderList(); drawWheel();
   showStatus("");
+  labelInput.focus();
 }
 
 addBtn.addEventListener('click', addOption);
@@ -245,18 +247,11 @@ function generateRandomSet(){
   options = [];
   let used = new Set();
   for(let i=0;i<count;i++){
-    let val;
-    do { val = (Math.floor(Math.random()*(500-1+1))+1)*100; } while(used.has(val));
-    used.add(val);
-    // bigger values should have smaller weight
-    const weight = Math.max(1, Math.round((50000 - val) / 500));
-    const label = `${val}`;
-    if (!label || label.trim() === "") {
-      // fallback to index if somehow blank
-      options.push({label: `Option ${i+1}`, weight, color: pickColor(i, (options[i-1]||{}).hue)});
-    } else {
-      options.push({label, weight, color: pickColor(i, (options[i-1]||{}).hue)});
-    }
+    // Generate label as random number for now
+    const label = `Option ${i+1}`;
+    // Weight: increments of 5, between 10 and 20
+    const weight = Math.floor(Math.random() * 3) * 5 + 10; // 10, 15, or 20
+    options.push({label, weight, color: pickColor(i, (options[i-1]||{}).hue)});
   }
   renderList(); drawWheel();
   showStatus("");
@@ -309,19 +304,9 @@ function loadFromEncoded(enc, mode){
     viewMode = (mode !== 'edit');
     if(typeof obj.highlight !== 'undefined') highlightCheckbox.checked = !!obj.highlight;
     if (viewMode) {
-      // Hide edit controls
-      if (shareEditBtn) shareEditBtn.style.display = 'none';
-      if (shareViewBtn) shareViewBtn.style.display = 'none';
-      if (addBtn) addBtn.style.display = 'none';
-      if (clearBtn) clearBtn.style.display = 'none';
-      if (randomBtn) randomBtn.style.display = 'none';
-      if (highlightCheckbox) highlightCheckbox.parentElement.style.display = 'none';
-      if (labelInput) labelInput.style.display = 'none';
-      if (weightInput) weightInput.style.display = 'none';
-      if (loadBtn) loadBtn.style.display = 'none';
-      if (loadInput) loadInput.style.display = 'none';
-      // Remove Spin button if present
-      if (spinBtn) spinBtn.style.display = 'none';
+      // Hide panel div completely
+      const panelDiv = document.querySelector('.panel');
+      if (panelDiv) panelDiv.style.display = 'none';
     }
     showStatus("");
   }catch(err){ showStatus('Failed to load data'); }

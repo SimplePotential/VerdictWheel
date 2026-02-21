@@ -14,16 +14,19 @@ h1{text-align:center;margin:0 0 8px;font-size:2.5rem;letter-spacing:0.01em;}
 .input-row{display:flex;gap:8px;margin-bottom:10px;align-items:center}
 .input-row input{flex:1 1 auto;min-width:0;padding:8px;border-radius:6px;border:1px solid #ddd}
 .input-row input[type=number]{flex:0 0 80px}
-.input-row button{flex:0 0 auto;padding:8px 10px;border:none;background:var(--accent);color:#fff;border-radius:6px;cursor:pointer}
+.input-row button{flex:0 0 auto;padding:8px 10px;border:none;background:var(--accent);color:#fff;border-radius:6px;cursor:pointer;transition:background 0.2s, box-shadow 0.2s;}
+.input-row button:hover { background: #2563eb; box-shadow: 0 2px 8px rgba(60,130,246,0.15); cursor: pointer; }
 #items{list-style:none;padding:0;margin:0 0 10px;max-height:220px;overflow:auto}
 #items li{display:flex;justify-content:space-between;align-items:center;padding:6px 8px;border-radius:6px;margin-bottom:6px;background:#fafafa;border:1px solid #eee}
 .buttons{display:flex;gap:8px}
-.buttons button{flex:1;padding:10px;border-radius:6px;border:none;background:#111;color:#fff;cursor:pointer}
+.buttons button{flex:1;padding:10px;border-radius:6px;border:none;background:#111;color:#fff;cursor:pointer;transition:background 0.2s, box-shadow 0.2s;}
+.buttons button:hover { background: #3b82f6; box-shadow: 0 2px 8px rgba(60,130,246,0.15); cursor: pointer; }
 .buttons button#clear{background:#888}
 .row{display:flex;gap:8px;margin-top:8px}
 .row.small-gap{gap:6px}
 .row input{flex:1 1 auto;padding:8px;border-radius:6px;border:1px solid #ddd}
-.row button{flex:0 0 auto;padding:8px 10px;border-radius:6px;border:none;background:#111;color:#fff}
+.row button{flex:0 0 auto;padding:8px 10px;border-radius:6px;border:none;background:#111;color:#fff;cursor:pointer;transition:background 0.2s, box-shadow 0.2s;}
+.row button:hover { background: #3b82f6; box-shadow: 0 2px 8px rgba(60,130,246,0.15); cursor: pointer; }
 .wheel-area{flex:1;position:relative;display:flex;align-items:center;justify-content:center}
 .wheel-area{flex:1;position:relative;display:flex;align-items:center;justify-content:center}
 #wheelContainer{width:500px;height:500px;border-radius:50%;overflow:visible;transform-origin:center center}
