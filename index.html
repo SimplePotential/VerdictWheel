@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Weighted Spinning Wheel</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>VerdictWheel</h1>
+    <div class="subtitle">Delegating your indecision to the spin</div>
+
+    <div class="layout">
+      <div class="panel">
+        <div class="input-row">
+          <input id="label" placeholder="Option label" />
+          <input id="weight" type="number" min="1" value="1" />
+          <button id="add">Add</button>
+        </div>
+        <ul id="items"></ul>
+        <div class="row small-gap">
+          <button id="spin">Spin</button>
+          <button id="clear">Clear</button>
+          <button id="random">Random Set</button>
+        </div>
+
+        <div class="row small-gap">
+          <label><input type="checkbox" id="highlightWin" checked /> Highlight win</label>
+          <button id="shareEdit">Share (edit)</button>
+          <button id="shareView">Share (view)</button>
+        </div>
+        <div class="row">
+          <input id="loadString" placeholder="Paste encoded link/data or URL" />
+          <button id="load">Load</button>
+        </div>
+
+        <div id="result" class="result"></div>
+        <div id="status" class="status"></div>
+      </div>
+
+      <div class="wheel-area">
+        <div id="pointer">▼</div>
+        <div id="wheelContainer">
+          <canvas id="wheel" width="500" height="500"></canvas>
+        </div>
+        <!-- Move verdict below wheel -->
+      </div>
+      <div id="verdict" class="verdict" style="text-align:center;margin-top:12px;"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
