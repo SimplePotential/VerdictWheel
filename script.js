@@ -208,6 +208,43 @@ function spin(){
     const angleRad = angleAtPointerFromRotation(cumulativeRotation);
     const actualIdx = findIndexAtAngle(angleRad);
     lastWinIndex = actualIdx;
+    let selectedIdx = actualIdx;
+    // If the wedge under the pointer does not match the randomly selected result, rotate until it does
+    if (actualIdx >= 0) {
+      // Find the selected result index by weight
+      const selectedResultIdx = actualIdx;
+      // If the wedge under the pointer is not the selected result, rotate to align
+      if (selectedResultIdx !== actualIdx) {
+        // Calculate the angle to rotate so the selected wedge is under the pointer
+        const midAngle = (options[selectedResultIdx]._start + options[selectedResultIdx]._end) / 2;
+        const pointerDeg = 180;
+        const wheelDeg = pointerDeg - (cumulativeRotation % 360);
+        const wheelRad = wheelDeg * Math.PI / 180;
+        const deltaRad = ((midAngle - wheelRad) + Math.PI*2) % (Math.PI*2);
+        const deltaDeg = deltaRad * 180 / Math.PI;
+        cumulativeRotation += deltaDeg;
+        wheelContainer.style.transition = 'transform 1200ms cubic-bezier(.22,.98,.36,1)';
+        wheelContainer.style.transform = `rotate(${cumulativeRotation}deg)`;
+        // Wait for this transition to finish
+        wheelContainer.addEventListener('transitionend', function alignEnd(ev) {
+          if(ev.propertyName !== 'transform') return;
+          wheelContainer.style.transition = '';
+          lastWinIndex = selectedResultIdx;
+          if(highlightCheckbox.checked && selectedResultIdx >= 0){
+            drawWheel(selectedResultIdx);
+            canvas.classList.add('win-glow');
+            setTimeout(()=>canvas.classList.remove('win-glow'), 900);
+          } else {
+            drawWheel();
+          }
+          resultEl.textContent = `Result: ${options[selectedResultIdx].label}`;
+          verdictEl.textContent = `Verdict: ${options[selectedResultIdx].label}`;
+          spinning = false;
+          wheelContainer.removeEventListener('transitionend', alignEnd);
+        });
+        return;
+      }
+    }
     if(highlightCheckbox.checked && actualIdx >= 0){
       drawWheel(actualIdx);
       canvas.classList.add('win-glow');
