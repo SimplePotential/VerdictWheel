@@ -26,9 +26,9 @@
         </div>
 
         <div class="row small-gap">
-          <label><input type="checkbox" id="highlightWin" checked /> Highlight win</label>
           <button id="shareEdit">Share (edit)</button>
           <button id="shareView">Share (view)</button>
+          <button id="help">Help</button>
         </div>
         <div class="row">
           <input id="loadString" placeholder="Paste encoded link/data or URL" />
@@ -39,8 +39,44 @@
         <div id="status" class="status"></div>
       </div>
 
+      <!-- Help modal -->
+      <div id="helpOverlay">
+        <div id="helpBox">
+          <button id="helpClose" title="Close">&times;</button>
+          <h2>How to use VerdictWheel</h2>
+
+          <h3>Adding options</h3>
+          <p>Type an option label in the text field, set an optional weight (higher weight = more likely to win), then click <strong>Add</strong> or press <strong>Enter</strong>.</p>
+
+          <h3>Weights</h3>
+          <p>Each wedge occupies a slice proportional to its weight. An option with weight&nbsp;2 is twice as likely to be chosen as one with weight&nbsp;1.</p>
+
+          <h3>Spinning the wheel</h3>
+          <p>Click anywhere on the wheel to spin it. When it stops, the wedge under the red pointer is the winner — it will glow to confirm the result.</p>
+
+          <h3>Clearing &amp; restarting</h3>
+          <p>Click <strong>Clear</strong> to remove all options.</p>
+
+          <h3>Random Set</h3>
+          <p>Click <strong>Random Set</strong> to instantly populate the wheel with a random selection of options — great for testing or inspiration.</p>
+
+          <h3>Sharing</h3>
+          <ul>
+            <li><strong>Share (edit)</strong> — copies a link that lets others load your wheel and make changes.</li>
+            <li><strong>Share (view)</strong> &mdash; copies a read-only link; viewers can spin but not edit. <em>This does not completely prevent editing &mdash; it merely defaults the editing controls to hidden.</em></li>
+          </ul>
+
+          <h3>Loading a saved wheel</h3>
+          <p>Paste a previously shared link or encoded string into the input field and click <strong>Load</strong>.</p>
+          <p>You can also load a wheel directly by pasting a copied link into your browser's address bar and pressing <strong>Enter</strong> &mdash; no need to use the Load field at all. You can <strong>bookmark</strong> that URL to return to the same wheel any time.</p>
+
+          <h3>Maximum options</h3>
+          <p>You can add up to <strong>50 options</strong> manually. The Random Set generator creates up to 15.</p>
+        </div>
+      </div>
+
       <div class="wheel-area">
-        <div id="pointer">▼</div>
+        <div id="pointer"></div>
         <div id="wheelContainer">
           <canvas id="wheel" width="500" height="500"></canvas>
         </div>
