@@ -161,9 +161,9 @@ function pickIndexByWeight(){
 }
 
 function angleAtPointerFromRotation(rotDeg){
-  // pointer points down (180deg) visually because we placed pointer downward.
+  // pointer is at the top of the wheel (12 o'clock = 270deg in canvas coords where 0=right).
   // We compute which angle on the wheel is at pointer: wheel angle = pointerAngle - rotation
-  const pointerDeg = 180; // pointer pointing down
+  const pointerDeg = 270; // pointer at top (12 o'clock)
   const wheelDeg = (pointerDeg - (rotDeg % 360) + 360) % 360; // degrees on wheel that align with pointer
   return wheelDeg * Math.PI / 180; // radians
 }
@@ -217,7 +217,7 @@ function spin(){
       if (selectedResultIdx !== actualIdx) {
         // Calculate the angle to rotate so the selected wedge is under the pointer
         const midAngle = (options[selectedResultIdx]._start + options[selectedResultIdx]._end) / 2;
-        const pointerDeg = 180;
+        const pointerDeg = 270;
         const wheelDeg = pointerDeg - (cumulativeRotation % 360);
         const wheelRad = wheelDeg * Math.PI / 180;
         const deltaRad = ((midAngle - wheelRad) + Math.PI*2) % (Math.PI*2);
